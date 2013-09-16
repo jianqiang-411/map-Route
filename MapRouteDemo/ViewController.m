@@ -107,6 +107,60 @@
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误" message:@"无法查找位置，请检查输入或网络连接" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
+        
+        /*
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder geocodeAddressString:fromText.text completionHandler:^(NSArray *placemarks, NSError *error) {
+                if (error != nil) {
+                    NSLog(@"error===== %@",error);
+                    return ;
+                }
+                if ([placemarks count] > 0) {
+                    CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                    CLLocationCoordinate2D coordinate = placemark.location.coordinate;
+                    
+                    if (text == fromText) {
+                        from_Place = [[Place alloc] init] ;
+                        from_Place.name = fromText.text;
+                        from_Place.latitude = coordinate.latitude;
+                        from_Place.longitude = coordinate.longitude;
+                        
+                        NSLog(@"-----------%f,%f===========",coordinate.latitude,coordinate.longitude);
+                        
+                        PlaceMark *pmark = [[PlaceMark alloc] initWithPlace:from_Place];
+                        
+                        if ([mapView.mapView.annotations count] > 0) {
+                            [mapView.mapView removeAnnotations:mapView.mapView.annotations];
+                        }
+                        [mapView.mapView addAnnotation:pmark];
+                    }
+                    
+                    if (text == toText) {
+                        to_Place = [[Place alloc] init] ;
+                        to_Place.name = toText.text;
+                        to_Place.latitude = coordinate.latitude;
+                        to_Place.longitude = coordinate.longitude;
+                        
+                        
+                        PlaceMark *pmark = [[PlaceMark alloc] initWithPlace:to_Place];
+                        
+                        if ([mapView.mapView.annotations count] > 0) {
+                            [mapView.mapView removeAnnotations:mapView.mapView.annotations];
+                        }
+                        [mapView.mapView addAnnotation:pmark];
+                        
+                        
+                        CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(coordinate.latitude,coordinate.longitude);
+                        float zoomLevel = 0.02;
+                        MKCoordinateRegion region = MKCoordinateRegionMake(coords, MKCoordinateSpanMake(zoomLevel, zoomLevel));
+                        
+                        [mapView.mapView setRegion:[mapView.mapView regionThatFits:region] animated:YES];
+
+                    }
+                }
+            }];
+        
+      */  
     }];
     
     [request startSynchronous];
